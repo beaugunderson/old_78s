@@ -40,11 +40,11 @@ function firstUnused(cb) {
 }
 
 function creator(song) {
-  if (song.creator.length > 1) {
+  if (Array.isArray(song.creator)) {
     return `${song.creator[0]} et al.`;
   }
 
-  return song.creator[0];
+  return song.creator;
 }
 
 function url(song) {

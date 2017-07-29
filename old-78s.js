@@ -62,6 +62,15 @@ program
 
       generate.on('close', (code) => {
         if (code) {
+          // if we couldn't download anything
+          if (code === 200) {
+            db.put(song.identifier, '2', (putError) => {
+              console.log(`db.put ${song.identifier} ${putError}`);
+            });
+
+            return;
+          }
+
           throw new Error(`non-zero exit code: ${code}`);
         }
 

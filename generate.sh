@@ -16,6 +16,9 @@ image_url="http://archive.org/download/$1/$(urlencode "$image")"
 music_url="http://archive.org/download/$1/$(urlencode "$music")"
 music_extension="mp3"
 
+echo $image_url
+echo $music_url
+
 http --download --output 78.jpg GET "$image_url"
 http --download --output 78.mp3 GET "$music_url"
 
@@ -25,7 +28,14 @@ then
   music_url="http://archive.org/download/$1/$(urlencode "$music")"
   music_extension="ogg"
 
+  echo $music_url
+
   http --download --output 78.ogg GET "$music_url"
+
+  if [ $? -ne 0 ]
+  then
+    exit 200
+  fi
 fi
 
 # don't bother error checking the above since ffmpeg will quickly exit non-zero
